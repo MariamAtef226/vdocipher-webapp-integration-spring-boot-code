@@ -37,6 +37,7 @@ _PS: The app doesn't include any authorization or authentication for simplicity,
 ## :hammer_and_wrench: Customization:
 - in VideoTestController.java: set API_SECRET attribute with an APIsecret value from your account (You can find the API secret key for your account by logging into the Dashboard -> Config tab.)
 - in application.properties and application-local.properties: configure parameters according to your database credentials
+- don't forget to create the database you're gonna reference in the app-prop files
   
 ##  :electric_plug: Installation and Run
 ```
@@ -56,6 +57,8 @@ $ java -jar target/application-name.jar
 Replace application-name.jar with the name of your JAR file generated during the build process.
 
 Access the app on http://localhost:8080/.
+
+You can find documentation on http://localhost:8080/swagger-ui/index.html
 
 
 ##  :file_folder: File Structure
