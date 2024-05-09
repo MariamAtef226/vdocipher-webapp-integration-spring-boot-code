@@ -9,6 +9,9 @@ You can find the client-side app at the following repo: [vdocipher-webapp-integr
 
 - [About](#beginner-about)
 - [Pre-Requisites](#notebook-pre-requisites)
+- [Customization](#hammer_and_wrench-customization)
+- [Installation and Run](#electric_plug-installation-and-run)
+- [File Structure](#file_folder-file-structure)
 - [Contribution](#fire-contribution)
 - [Resources](#page_facing_up-resources)
 - [Author](#star2-author)
@@ -16,7 +19,12 @@ You can find the client-side app at the following repo: [vdocipher-webapp-integr
 
 
 ##  :beginner: About
-The repository includes a simple demo implementation for the functions of video upload and preview client-side App using Spring Boot framework. The server-side app includesjs. The app presents an acceeptable UI for the dropzone element to begin with, in addition to coverage of most of the possible events and cases (such as: upload cancellation, exceeding maximum limit of uploads, success of upload and errors). The app communicates mainly with the server-side app endpoints, except for the physical process of video upload where it uploads it directly to the provided VdoCipher account that has been dedcued from response of some endpoints from the server-side app.
+The repository includes a simple demo implementation for the functions of video upload and preview client-side App using Spring Boot framework. The server-side app includes 4 endpoints:
+- getCredentials: to return video credentials to upload at client-side.
+- deleteVideo: to delete video by its id.
+- addVideoToDatabase: to add video's id and status in our database when upload is successful.
+- getOtp: to return otp and playback info for a given videoID to play at client-side.
+_PS: The app doesn't include any authorization or authentication for simplicity, since this project is just a demo for VdoCipher integration with Spring Boot to guide you_
 
 ## :notebook: Pre-Requisites
 - VdoCipher Account
@@ -26,15 +34,56 @@ The repository includes a simple demo implementation for the functions of video 
 - Node.js and npm (for the react.js app)
 
 
-[//]: # ( ## :arrow_down: Dropzone Implementation: )
+## :hammer_and_wrench: Customization:
+- in VideoTestController.java: set API_SECRET attribute with an APIsecret value from your account (You can find the API secret key for your account by logging into the Dashboard -> Config tab.)
+- in application.properties and application-local.properties: configure parameters according to your database credentials
+  
+##  :electric_plug: Installation and Run
+```
+$ git clone <repository-url>
+$ cd spring-boot-app-directory
+```
+Build the app:
+```
+$ ./mvnw clean package
+```
+If you're using Windows, use mvnw.cmd instead of ./mvnw.
+
+Run the app:
+```
+$ java -jar target/application-name.jar
+```
+Replace application-name.jar with the name of your JAR file generated during the build process.
+
+Access the app on http://localhost:8080/.
 
 
-[//]: # ( ## :hammer_and_wrench: Dropzone Customization: )
-
-[//]: # (  ##  :electric_plug: Installation)
-
-
-[//]: # ( ##  :file_folder: File Structure )
+##  :file_folder: File Structure
+```
+.
+├── src
+|   ├── test/java/com/VdoCipherIntegration // ignore
+│   ├── main
+|   |   ├── java/com/VdoCipherIntegration
+|   |   |   ├── config    // includes cors security configuration
+|   |   |   ├── controller    // includes VideoTestController (where all of our logic lies)
+|   |   |   ├── dto         // includes custome classes for error and responses (not important)
+|   |   |   ├── entity       // include Video entity and Enums class
+|   |   |   ├── exception    // includes common exception classes
+|   |   |   ├── repository    // includes a repo interface for Video Entity
+|   |   |   ├── BackendApplication.java     // where the app is run
+|   |   ├── resources
+|   |   |   ├── application.properties 
+|   |   |   ├── application-local.properties
+├── .gitattributes
+├── .gitignore
+├── mvnw
+├── mvwn.cmd
+├── pom.xml
+├── LICENSE
+└── README.md
+```
+_PS: The project doesn't follow the conventional Spring Boot app structure since it's just for the purpose of showing integration steps_
 
 
 ##  :fire: Contribution
